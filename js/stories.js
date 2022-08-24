@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
@@ -38,7 +38,7 @@ function generateStoryMarkup(story) {
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
-  console.debug("putStoriesOnPage");
+  console.debug('putStoriesOnPage');
 
   $allStoriesList.empty();
 
@@ -49,4 +49,32 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
+}
+
+function storySubmit() {
+  $navSubStory.on('click', function () {
+    $allStoriesList.hide();
+    $storiesForm.show();
+  });
+  $btnSubmit.on('click', function (evt) {
+    evt.preventDefault();
+    const strAuthor = document.querySelector('#stories-author');
+    const strTitle = document.querySelector('#stories-title');
+    const strURL = document.querySelector('#stories-url');
+
+    let newStory = storyList.addStory(currentUser, {
+      title: strTitle.value,
+      author: strAuthor.value,
+      url: 'https://fake.com',
+    });
+    newStory;
+    start();
+    // location.reload();
+    // addStory(currentUser.loginToken, {
+    //   title: strTitle.value,
+    //   author: strAuthor.value,
+    //   url: strURL.value,
+    // // });
+    // console.log(currentUser.loginToken);
+  });
 }
