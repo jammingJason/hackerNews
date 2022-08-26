@@ -30,6 +30,35 @@ $navSubFav.on('click', function () {
   }
 });
 
+//  At the end of the list, add more stories
+let intCount = 0;
+window.onscroll = function (ev) {
+  if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+    if (intCount === 0) {
+      getMoreStories();
+      intCount++;
+    }
+  }
+};
+
+async function getMoreStories() {
+  // alert("you're at the bottom of the page");
+  // query the /stories endpoint (no auth required)
+  const response = await axios({
+    url: `${BASE_URL}/stories?skip=25&limit=25`,
+    method: 'GET',
+  });
+
+  // turn plain old story objects from API into instances of Story class
+  const stories = response.data.stories.map((story) => new Story(story));
+  // console.log(stories);
+  for (let i = 0; i < stories.length; i++) {
+    const favStory = generateStoryMarkup(stories[i]);
+    $allStoriesList.append(favStory);
+    console.log(favStory);
+  }
+}
+
 //   Show My Stories
 $navSubMyStories.on('click', () => {
   clearMyFavorites();
@@ -41,6 +70,7 @@ $navSubMyStories.on('click', () => {
   }
 });
 
+//  Clear the contents of DIV that makes the call (my stories OR favorites)
 function clearMyFavorites() {
   const getLI = document.querySelectorAll('.listItems');
   for (const key in getLI) {
@@ -71,16 +101,21 @@ function generateStoryMarkup(story) {
         <small class="story-hostname">(${hostName})</small>
         <small class="story-author">by ${story.author}</small>
         <small class="story-user">posted by ${story.username}</small>
-        <small class="story-remove"><a href="javascript:removeStory('${story.storyId}')">Remove</a>
+        <small class="story-remove">
+        <a href="javascript:removeStory('${story.storyId}', '${story.title}', '${story.username}')">Remove</a>
         </small>
       </li>
       
     `);
 }
 
-async function removeStory(storyID) {
+//  Remove a specific story you have created
+async function removeStory(storyID, storyTitle, storyUsername) {
   // alert(storyID);
-
+  if (currentUser.username !== storyUsername) {
+    alert('You cannot delete a story you did not post!');
+    return;
+  }
   const token = currentUser.loginToken;
   const res = await axios({
     method: 'DELETE',
@@ -89,7 +124,7 @@ async function removeStory(storyID) {
   });
   // console.log(response);
   // console.log(res);
-
+  alert(storyTitle + ' has been removed!');
   location.reload();
 }
 
@@ -127,6 +162,7 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
+//  Creates a new Story
 function storySubmit() {
   $navSubStory.on('click', function () {
     hidePageComponents();
