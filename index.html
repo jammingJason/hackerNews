@@ -18,11 +18,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Hack or Snooze</title>
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
       integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
       crossorigin="anonymous"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     />
     <link rel="stylesheet" href="css/site.css" />
     <link rel="stylesheet" href="css/user.css" />
@@ -57,6 +61,20 @@
       <ol id="all-stories-list" class="stories-list"></ol>
     </section>
 
+    <!-- Favorites forms -->
+    <section class="favoriteSection container">
+      <div class="div hidden" id="divFav">
+        <ol id="favList"></ol>
+      </div>
+    </section>
+
+    <!-- My Stories page -->
+    <section class="myStoriesSection container">
+      <div class="div hidden" id="divMyStories">
+        <ol id="myStoriesList"></ol>
+      </div>
+    </section>
+
     <!-- Login and signup forms -->
     <section class="account-forms-container container">
       <!-- Add stories section -->
@@ -69,15 +87,19 @@
         <h4>Add a Story</h4>
         <div class="stories-input">
           <label for="stories-author">Author:</label>
-          <input id="stories-author" value="Mr. Jones" />
+          <input id="stories-author" placeholder="Dr. Ben Jones" />
         </div>
         <div class="stories-input">
           <label for="stories-title">Title:</label>
-          <input id="stories-title" autocomplete="" value="Grand Title" />
+          <input id="stories-title" autocomplete="" placeholder="Grand Title" />
         </div>
         <div class="stories-input">
           <label for="stories-url">URL:</label>
-          <input id="stories-url" autocomplete="" value="www.google.com" />
+          <input
+            id="stories-url"
+            autocomplete=""
+            placeholder="https://www.google.com"
+          />
         </div>
         <button type="submit" id="btnSubmit">Submit</button>
         <hr />

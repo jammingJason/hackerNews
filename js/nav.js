@@ -36,21 +36,3 @@ function updateNavOnLogin() {
   $userStoryNav.show();
   storySubmit();
 }
-
-function storySubmit() {
-  $navSubStory.on('click', function () {
-    $allStoriesList.hide();
-    $storiesForm.show();
-  });
-  $btnSubmit.on('click', function (evt) {
-    evt.preventDefault();
-
-    console.log(
-      addStory(currentUser, {
-        title: 'New Book to Enjoy',
-        author: 'VJC',
-        url: 'www.google.com',
-      })
-    );
-  });
-}

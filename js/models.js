@@ -77,7 +77,8 @@ class StoryList {
       url: `${BASE_URL}/stories`,
       data: { token, story: { title, author, url } },
     });
-    return response.data.story;
+    const returnValue = new Story(response.data.story);
+    return returnValue;
   }
 }
 
