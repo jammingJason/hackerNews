@@ -55,7 +55,7 @@ async function getMoreStories() {
   for (let i = 0; i < stories.length; i++) {
     const favStory = generateStoryMarkup(stories[i]);
     $allStoriesList.append(favStory);
-    console.log(favStory);
+    // console.log(favStory);
   }
 }
 

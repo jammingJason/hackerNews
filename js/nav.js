@@ -35,4 +35,5 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
   $userStoryNav.show();
   storySubmit();
+  navAllStories();
 }
